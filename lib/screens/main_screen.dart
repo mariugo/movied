@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movied/model/category.dart';
+import 'package:movied/model/movie.dart';
+import 'package:movied/widgets/movie_tile.dart';
 
 class MainScreen extends ConsumerWidget {
   double _deviceHeigt;
@@ -18,6 +21,7 @@ class MainScreen extends ConsumerWidget {
   Widget _buildUI() {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.black,
         body: Container(
           height: _deviceHeigt,
@@ -63,14 +67,26 @@ class MainScreen extends ConsumerWidget {
 
   Widget _foregroundWidgets() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, _deviceHeigt * 0.02, 0, 0),
+      padding: EdgeInsets.fromLTRB(
+        0,
+        _deviceHeigt * 0.02,
+        0,
+        0,
+      ),
       width: _deviceWidth * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _topBarWidget(),
+          Container(
+            height: _deviceHeigt * 0.83,
+            padding: EdgeInsets.symmetric(
+              vertical: _deviceHeigt * 0.01,
+            ),
+            child: _moviesListViewWidget(),
+          ),
         ],
       ),
     );
@@ -91,24 +107,26 @@ class MainScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _searchFieldWidget(),
+          _category(),
         ],
       ),
     );
   }
 
   Widget _searchFieldWidget() {
+    final _border = InputBorder.none;
     return Container(
-      height: _deviceHeigt * 0.50,
-      width: _deviceWidth * 0.05,
+      height: _deviceHeigt * 0.05,
+      width: _deviceWidth * 0.50,
       child: TextField(
         controller: _searchTextFieldController,
-        onSubmitted: (_) {},
+        onSubmitted: (_input) {},
         style: TextStyle(
           color: Colors.white,
         ),
         decoration: InputDecoration(
-          focusedBorder: InputBorder.none,
-          border: InputBorder.none,
+          focusedBorder: _border,
+          border: _border,
           prefixIcon: Icon(
             Icons.search,
             color: Colors.white24,
@@ -122,5 +140,83 @@ class MainScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Widget _category() {
+    return DropdownButton(
+      dropdownColor: Colors.black38,
+      value: Category.popular,
+      icon: Icon(
+        Icons.menu,
+        color: Colors.white24,
+      ),
+      underline: Container(
+        height: 1,
+        color: Colors.white24,
+      ),
+      onChanged: (_) {},
+      items: [
+        DropdownMenuItem(
+          child: Text(
+            Category.popular,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          value: Category.popular,
+        ),
+        DropdownMenuItem(
+          child: Text(
+            Category.upcoming,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        DropdownMenuItem(
+          child: Text(
+            Category.none,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _moviesListViewWidget() {
+    final List<Movie> _movies = [];
+    for (int i = 0; i < 20; i++) {
+      _movies.add(
+        Movie(),
+      );
+    }
+    if (_movies.length != 0) {
+      return ListView.builder(
+          itemCount: _movies.length,
+          itemBuilder: (BuildContext _ctx, int _count) {
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: _deviceHeigt * 0.01,
+                horizontal: 0,
+              ),
+              child: GestureDetector(
+                onTap: () {},
+                child: MovieTile(
+                  movie: _movies[_count],
+                  height: _deviceHeigt * 0.20,
+                  width: _deviceWidth * 0.85,
+                ),
+              ),
+            );
+          });
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+    }
   }
 }
