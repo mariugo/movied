@@ -41,4 +41,20 @@ class MovieService {
       throw Exception('Problema ao carregar');
     }
   }
+
+  Future<List<Movie>> searchMovies(String _searchText, {int page}) async {
+    Response _response = await _httpService.get('/search/movie', query: {
+      'query': _searchText,
+      'page': page,
+    });
+    if (_response.statusCode == 200) {
+      Map _data = _response.data;
+      List<Movie> _movies = _data['results'].map<Movie>((_movieData) {
+        return Movie.fromJson(_movieData);
+      }).toList();
+      return _movies;
+    } else {
+      throw Exception('Problema ao carregar');
+    }
+  }
 }

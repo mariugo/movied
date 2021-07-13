@@ -29,6 +29,8 @@ class MainScreen extends ConsumerWidget {
     _mainScreenDataController = watch(mainScreenDataControllerProvider);
     _mainScreenData = watch(mainScreenDataControllerProvider.state);
 
+    _searchTextFieldController.text = _mainScreenData.searchText;
+
     return _buildUI();
   }
 
@@ -134,7 +136,8 @@ class MainScreen extends ConsumerWidget {
       width: _deviceWidth * 0.50,
       child: TextField(
         controller: _searchTextFieldController,
-        onSubmitted: (_input) {},
+        onSubmitted: (_input) =>
+            _mainScreenDataController.updateTextSearch(_input),
         style: TextStyle(
           color: Colors.white,
         ),

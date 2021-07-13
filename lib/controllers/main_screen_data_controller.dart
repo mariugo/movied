@@ -27,7 +27,8 @@ class MainScreenDataController extends StateNotifier<MainScreenData> {
           _movies = [];
         }
       } else {
-        //PERFORM TEXT SEARCH
+        _movies = await _movieService.searchMovies(state.searchText,
+            page: state.page);
       }
       state = state.copyWith(
           movies: [...state.movies, ..._movies], page: state.page + 1);
@@ -40,6 +41,19 @@ class MainScreenDataController extends StateNotifier<MainScreenData> {
     try {
       state = state.copyWith(
           movies: [], page: 1, searchCategory: _category, searchText: '');
+      getMovies();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  void updateTextSearch(String _searchText) {
+    try {
+      state = state.copyWith(
+          movies: [],
+          page: 1,
+          searchCategory: Category.none,
+          searchText: _searchText);
       getMovies();
     } catch (e) {
       print(e.toString());
