@@ -2,19 +2,33 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movied/model/category.dart';
-import 'package:movied/model/movie.dart';
-import 'package:movied/widgets/movie_tile.dart';
+
+import '/controllers/main_screen_data_controller.dart';
+import '/model/category.dart';
+import '/model/main_screen_data.dart';
+import '/model/movie.dart';
+import '/widgets/movie_tile.dart';
+
+final mainScreenDataControllerProvider =
+    StateNotifierProvider<MainScreenDataController>((_) {
+  return MainScreenDataController();
+});
 
 class MainScreen extends ConsumerWidget {
   double _deviceHeigt;
   double _deviceWidth;
+  MainScreenDataController _mainScreenDataController;
+  MainScreenData _mainScreenData;
   TextEditingController _searchTextFieldController;
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     _deviceHeigt = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
     _searchTextFieldController = TextEditingController();
+    _mainScreenDataController = watch(mainScreenDataControllerProvider);
+    _mainScreenData = watch(mainScreenDataControllerProvider.state);
+
     return _buildUI();
   }
 
@@ -76,7 +90,7 @@ class MainScreen extends ConsumerWidget {
       width: _deviceWidth * 0.88,
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _topBarWidget(),
@@ -186,12 +200,8 @@ class MainScreen extends ConsumerWidget {
   }
 
   Widget _moviesListViewWidget() {
-    final List<Movie> _movies = [];
-    for (int i = 0; i < 20; i++) {
-      _movies.add(
-        Movie(),
-      );
-    }
+    final List<Movie> _movies = _mainScreenData.movies;
+
     if (_movies.length != 0) {
       return ListView.builder(
           itemCount: _movies.length,

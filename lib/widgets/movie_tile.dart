@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+//import 'package:get_it/get_it.dart';
 
 import 'package:movied/model/movie.dart';
 
 class MovieTile extends StatelessWidget {
-  final GetIt _getIt = GetIt.instance;
+  //final GetIt _getIt = GetIt.instance;
   final double height;
   final double width;
   final Movie movie;
@@ -47,7 +47,7 @@ class MovieTile extends StatelessWidget {
   Widget _movieInfoWidget() {
     return Container(
       height: height,
-      width: width * 0.65,
+      width: width * 0.66,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,9 @@ class MovieTile extends StatelessWidget {
               0,
             ),
             child: Text(
-              '${movie.language.toUpperCase()} | R: ${movie.isAdult} | ${movie.releaseDate}',
+              '${movie.language.toUpperCase()} | R: ' +
+                  isAdultStringFunction(movie.isAdult.toString()) +
+                  ' | ${movie.releaseDate}',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -103,7 +105,7 @@ class MovieTile extends StatelessWidget {
             ),
             child: Text(
               movie.description,
-              maxLines: 9,
+              maxLines: 10,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.white70,
@@ -114,5 +116,12 @@ class MovieTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String isAdultStringFunction(String isAdult) {
+    if (isAdult == 'false') {
+      return 'Não';
+    }
+    return 'Sim';
   }
 }

@@ -9,7 +9,7 @@ class Movie {
   final String description;
   final String posterPath;
   final String backdropPath;
-  final double ratig;
+  final num ratig;
   final String releaseDate;
 
   Movie({
@@ -31,7 +31,7 @@ class Movie {
       description: _json['overview'],
       posterPath: _json['poster_path'],
       backdropPath: _json['backdrop_path'],
-      ratig: _json['vote_avarage'],
+      ratig: _json['vote_average'],
       releaseDate: _json['release_date'],
     );
   }
