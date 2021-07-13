@@ -159,7 +159,7 @@ class MainScreen extends ConsumerWidget {
   Widget _category() {
     return DropdownButton(
       dropdownColor: Colors.black38,
-      value: Category.popular,
+      value: _mainScreenData.searchCategory,
       icon: Icon(
         Icons.menu,
         color: Colors.white24,
@@ -168,7 +168,9 @@ class MainScreen extends ConsumerWidget {
         height: 1,
         color: Colors.white24,
       ),
-      onChanged: (_) {},
+      onChanged: (_value) => _value.toString().isNotEmpty
+          ? _mainScreenDataController.updateSearchCategory(_value)
+          : null,
       items: [
         DropdownMenuItem(
           child: Text(
@@ -186,6 +188,7 @@ class MainScreen extends ConsumerWidget {
               color: Colors.white,
             ),
           ),
+          value: Category.upcoming,
         ),
         DropdownMenuItem(
           child: Text(
@@ -194,6 +197,7 @@ class MainScreen extends ConsumerWidget {
               color: Colors.white,
             ),
           ),
+          value: Category.none,
         ),
       ],
     );
