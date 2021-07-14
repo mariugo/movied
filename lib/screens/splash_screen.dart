@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(
       Duration(
-        seconds: 2,
+        seconds: 1,
       ),
     ).then(
       (_) => _setup(context).then(
@@ -65,13 +65,13 @@ class _SplashScreenState extends State<SplashScreen> {
     return MaterialApp(
       home: Center(
         child: Container(
-          height: 200,
-          width: 200,
+          height: 500,
+          width: 500,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
               image: AssetImage(
-                'assets/images/logo.jpg',
+                'assets/images/logo.png',
               ),
             ),
           ),

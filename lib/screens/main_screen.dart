@@ -14,13 +14,19 @@ final mainScreenDataControllerProvider =
   return MainScreenDataController();
 });
 
-class MainScreen extends ConsumerWidget {
-  double _deviceHeigt;
-  double _deviceWidth;
-  MainScreenDataController _mainScreenDataController;
-  MainScreenData _mainScreenData;
-  TextEditingController _searchTextFieldController;
+final selectedMoviePosterProvider = StateProvider<String>((ref) {
+  final _movies = ref.watch(mainScreenDataControllerProvider.state).movies;
+  return _movies.length != 0 ? _movies[0].posterUrl() : null;
+});
 
+double _deviceHeigt;
+double _deviceWidth;
+MainScreenDataController _mainScreenDataController;
+MainScreenData _mainScreenData;
+TextEditingController _searchTextFieldController;
+var _selectedMoviePosterUrl;
+
+class MainScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     _deviceHeigt = MediaQuery.of(context).size.height;
@@ -28,6 +34,7 @@ class MainScreen extends ConsumerWidget {
     _searchTextFieldController = TextEditingController();
     _mainScreenDataController = watch(mainScreenDataControllerProvider);
     _mainScreenData = watch(mainScreenDataControllerProvider.state);
+    _selectedMoviePosterUrl = watch(selectedMoviePosterProvider);
 
     _searchTextFieldController.text = _mainScreenData.searchText;
 
@@ -55,30 +62,39 @@ class MainScreen extends ConsumerWidget {
   }
 
   Widget _backgroundWidget() {
-    return Container(
-      height: _deviceHeigt,
-      width: _deviceHeigt,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(
-              'https://images-na.ssl-images-amazon.com/images/I/91B32iU7ayL._AC_SL1500_.jpg'),
-          fit: BoxFit.cover,
+    if (_selectedMoviePosterUrl.state != null) {
+      return Container(
+        height: _deviceHeigt,
+        width: _deviceHeigt,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(
+              _selectedMoviePosterUrl.state,
+            ),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: 15,
-          sigmaY: 15,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(
-              0.2,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 15,
+            sigmaY: 15,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(
+                0.2,
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        height: _deviceHeigt,
+        width: _deviceHeigt,
+        color: Colors.black,
+      );
+    }
   }
 
   Widget _foregroundWidgets() {
@@ -232,7 +248,9 @@ class MainScreen extends ConsumerWidget {
                   horizontal: 0,
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _selectedMoviePosterUrl.state = _movies[_count].posterUrl();
+                  },
                   child: MovieTile(
                     movie: _movies[_count],
                     height: _deviceHeigt * 0.20,

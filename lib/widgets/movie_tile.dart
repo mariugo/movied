@@ -87,7 +87,7 @@ class MovieTile extends StatelessWidget {
               0,
             ),
             child: Text(
-              '${movie.language.toUpperCase()} | R: ' +
+              '${movie.language.toUpperCase()} | +18: ' +
                   isAdultStringFunction(movie.isAdult.toString()) +
                   ' | ${movie.releaseDate}',
               style: TextStyle(
@@ -105,7 +105,7 @@ class MovieTile extends StatelessWidget {
             ),
             child: Text(
               movie.description,
-              maxLines: 10,
+              maxLines: 7,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.white70,

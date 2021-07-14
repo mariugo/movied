@@ -1,4 +1,4 @@
-package com.example.movied
+package com.mariugo.movied
 
 import io.flutter.embedding.android.FlutterActivity
 
