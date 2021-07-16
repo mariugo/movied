@@ -89,7 +89,7 @@ class MovieTile extends StatelessWidget {
             child: Text(
               '${movie.language.toUpperCase()} | +18: ' +
                   isAdultStringFunction(movie.isAdult.toString()) +
-                  ' | ${movie.releaseDate}',
+                  ' | + ${movie.releaseDate}',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,

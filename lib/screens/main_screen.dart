@@ -151,6 +151,7 @@ class MainScreen extends ConsumerWidget {
       height: _deviceHeigt * 0.05,
       width: _deviceWidth * 0.50,
       child: TextField(
+        cursorColor: Colors.white,
         controller: _searchTextFieldController,
         onSubmitted: (_input) =>
             _mainScreenDataController.updateTextSearch(_input),
