@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:get_it/get_it.dart';
 
 import 'package:movied/model/movie.dart';
 
 class MovieTile extends StatelessWidget {
-  //final GetIt _getIt = GetIt.instance;
   final double height;
   final double width;
   final Movie movie;
@@ -89,7 +87,9 @@ class MovieTile extends StatelessWidget {
             child: Text(
               '${movie.language.toUpperCase()} | +18: ' +
                   isAdultStringFunction(movie.isAdult.toString()) +
-                  ' | + ${movie.releaseDate}',
+                  ' | + ${movie.releaseDate}' +
+                  ' | ' +
+                  setGenre(movie.genreId[0]),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -123,5 +123,64 @@ class MovieTile extends StatelessWidget {
       return 'Não';
     }
     return 'Sim';
+  }
+
+  String setGenre(int genreId) {
+    if (genreId == 28) {
+      return "Ação";
+    }
+    if (genreId == 12) {
+      return "Aventura";
+    }
+    if (genreId == 16) {
+      return "Animação";
+    }
+    if (genreId == 35) {
+      return "Comédia";
+    }
+    if (genreId == 80) {
+      return "Criminal";
+    }
+    if (genreId == 99) {
+      return "Documentário";
+    }
+    if (genreId == 18) {
+      return "Drama";
+    }
+    if (genreId == 10751) {
+      return "Família";
+    }
+    if (genreId == 14) {
+      return "Fantasia";
+    }
+    if (genreId == 36) {
+      return "Histórico";
+    }
+    if (genreId == 27) {
+      return "Horror";
+    }
+    if (genreId == 10402) {
+      return "Musical";
+    }
+    if (genreId == 9648) {
+      return "Mistério";
+    }
+    if (genreId == 10749) {
+      return "Romance";
+    }
+    if (genreId == 878) {
+      return "Ficção Científica";
+    }
+    if (genreId == 10770) {
+      return "Filme da TV";
+    }
+    if (genreId == 53) {
+      return "Triller";
+    }
+    if (genreId == 10752) {
+      return "Guerra";
+    } else {
+      return "Faroeste";
+    }
   }
 }

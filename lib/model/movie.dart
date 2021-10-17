@@ -5,6 +5,7 @@ import '/model/app_config.dart';
 class Movie {
   final String name;
   final String language;
+  final List<dynamic> genreId;
   final bool isAdult;
   final String description;
   final String posterPath;
@@ -15,6 +16,7 @@ class Movie {
   Movie({
     this.name,
     this.language,
+    this.genreId,
     this.isAdult,
     this.description,
     this.posterPath,
@@ -27,6 +29,7 @@ class Movie {
     return Movie(
       name: _json['title'],
       language: _json['original_language'],
+      genreId: _json['genre_ids'],
       isAdult: _json['adult'],
       description: _json['overview'],
       posterPath: _json['poster_path'],
