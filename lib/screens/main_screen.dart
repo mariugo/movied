@@ -210,15 +210,6 @@ class MainScreen extends ConsumerWidget {
           ),
           value: Category.upcoming,
         ),
-        DropdownMenuItem(
-          child: Text(
-            Category.none,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          value: Category.none,
-        ),
       ],
     );
   }
