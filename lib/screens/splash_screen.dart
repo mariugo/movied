@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movied/services/http_service.dart';
-import 'package:movied/services/movie_service.dart';
 
-import '../model/app_config.dart';
+import '/services/http_service.dart';
+import '/services/movie_service.dart';
+import '/model/app_config.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitComplete;

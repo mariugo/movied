@@ -1,6 +1,4 @@
-import 'package:movied/model/category.dart';
-//import 'package:riverpod/riverpod.dart';
-
+import '/model/category.dart';
 import '/model/movie.dart';
 
 class MainScreenData {

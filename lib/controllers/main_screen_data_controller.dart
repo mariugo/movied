@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movied/model/category.dart';
 
+import '/model/category.dart';
 import '/model/main_screen_data.dart';
 import '/model/movie.dart';
 import '/services/movie_service.dart';
