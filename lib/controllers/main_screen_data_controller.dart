@@ -23,8 +23,6 @@ class MainScreenDataController extends StateNotifier<MainScreenData> {
           _movies = await _movieService.getPopularMovies(page: state.page);
         } else if (state.searchCategory == Category.upcoming) {
           _movies = await _movieService.getUpcomingMovies(page: state.page);
-        } else if (state.searchCategory == Category.none) {
-          _movies = [];
         }
       } else {
         _movies = await _movieService.searchMovies(state.searchText,
@@ -52,7 +50,7 @@ class MainScreenDataController extends StateNotifier<MainScreenData> {
       state = state.copyWith(
           movies: [],
           page: 1,
-          searchCategory: Category.none,
+          searchCategory: Category.popular,
           searchText: _searchText);
       getMovies();
     } catch (e) {
