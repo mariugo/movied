@@ -42,10 +42,11 @@ void main() {
       expect(result, isA<List<Movie>>());
     });
 
-    test('Should get all Titanic movies', () async {
+    test('Should search and get all Titanic movies', () async {
       final result = await movieService.searchMovies('Titanic');
       expect(result.isNotEmpty, true);
       expect(result, isA<List<Movie>>());
+      expect(result.first.name, 'Titanic');
     });
   });
 }
