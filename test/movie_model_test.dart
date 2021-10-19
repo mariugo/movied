@@ -1,5 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
+@Timeout(Duration(seconds: 5))
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:movied/model/movie.dart';
 
 void main() {
@@ -18,5 +19,7 @@ void main() {
 
   test('Should be a Movie Instance', () {
     expect(movieModel, isA<Movie>());
+    expect(movieModel.genreId, isA<List<dynamic>>());
+    expect(movieModel.ratig, isA<num>());
   });
 }
