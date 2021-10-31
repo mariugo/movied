@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:movied/model/movie.dart';
 
@@ -87,7 +88,10 @@ class MovieTile extends StatelessWidget {
             child: Text(
               '${movie.language.toUpperCase()} | +18: ' +
                   isAdultStringFunction(movie.isAdult.toString()) +
-                  ' | ${movie.releaseDate}' +
+                  ' | ' +
+                  DateFormat('dd-MM-yyyy')
+                      .format(DateTime.parse(movie.releaseDate))
+                      .toString() +
                   ' | ' +
                   setGenre(movie.genreId[0]),
               style: TextStyle(
@@ -105,7 +109,8 @@ class MovieTile extends StatelessWidget {
             ),
             child: Text(
               movie.description,
-              maxLines: 7,
+              maxLines: 5,
+              softWrap: true,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.white70,
